@@ -1,1 +1,74 @@
-<p>employee works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Alta de empleados</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="formEmployee">
+      <mat-grid-list cols="6" rowHeight="58px" [gutterSize]="'16px'">
+        <mat-grid-tile [colspan]="2" [rowspan]="3">
+          <div class="upload">
+            <app-avatar-upload
+              [imageUrl]="imageUrl"
+              (fileEvent)="fileHandler($event)"
+            ></app-avatar-upload>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="example-full-width">
+            <mat-label>Id del empleado</mat-label>
+            <input
+              matInput
+              placeholder="Id del empleado"
+              formControlName="id"
+              readonly
+            />
+            <mat-error *ngIf="formEmployee.get('id')?.hasError('required')">
+              El id de empleado es requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre completo</mat-label>
+            <input
+              matInput
+              placeholder="Nombre del empleado"
+              formControlName="name"
+            />
+            <mat-error *ngIf="formEmployee.get('name')?.hasError('required')">
+              El nombre del empleado es requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="example-full-width">
+            <mat-label>Salario</mat-label>
+            <input matInput placeholder="ej: 450" formControlName="salary" />
+            <mat-error *ngIf="formEmployee.get('salary')?.hasError('required')">
+              El salario de empleado es requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="example-full-width">
+            <mat-label>Edad</mat-label>
+            <input matInput placeholder="ej: 24" formControlName="age" />
+            <mat-error *ngIf="formEmployee.get('age')?.hasError('required')">
+              La edad del empleado es requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="saveEmployee()">Guardar</button>
+    <button mat-button (click)="back()">Cancelar</button>
+  </mat-card-actions>
+</mat-card>

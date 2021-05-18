@@ -1,1 +1,57 @@
-<p>list-employees works!</p>
+<div class="clr-row">
+  <div class="clr-col-12">
+    <button mat-stroked-button color="primary" [routerLink]="['crear']">
+      Crear empleado
+    </button>
+  </div>
+</div>
+
+<div class="clr-row">
+  <div class="clr-col-12">
+    <clr-datagrid [clrDgLoading]="loading">
+      <clr-dg-column>Nombre</clr-dg-column>
+      <clr-dg-column>Edad</clr-dg-column>
+      <clr-dg-column>Salario</clr-dg-column>
+      <clr-dg-column></clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let employe of employees">
+        <clr-dg-cell>{{ employe.name }}</clr-dg-cell>
+        <clr-dg-cell>{{ employe.age }}</clr-dg-cell>
+        <clr-dg-cell>{{ employe.salary | currency }}</clr-dg-cell>
+        <clr-dg-cell>
+          <button
+            mat-icon-button
+            matTooltip="Ver detalle"
+            [routerLink]="['employees', employe.id]"
+          >
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            matTooltip="Editar"
+            [routerLink]="['employees', employe.id]"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </clr-dg-cell>
+      </clr-dg-row>
+
+      <clr-dg-footer>
+        <ng-container *ngIf="!loading">
+          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} de
+          {{ totalItems }} empleados
+        </ng-container>
+        <clr-dg-pagination
+          #pagination
+          [clrDgTotalItems]="totalItems"
+          [clrDgPageSize]="10"
+        >
+          <clr-dg-page-size
+            [clrPageSizeOptions]="[10, 20, 50, 100]"
+          ></clr-dg-page-size>
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</div>
