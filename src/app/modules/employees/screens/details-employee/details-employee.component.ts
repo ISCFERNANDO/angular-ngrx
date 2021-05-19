@@ -10,12 +10,7 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import jsPDF from 'jspdf';
-/* import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts'; */
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import htmlToPdfmake from 'html-to-pdfmake';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-details-employee',
@@ -50,12 +45,17 @@ export class DetailsEmployeeComponent implements OnInit {
   }
 
   downloadAsPDF(): void {
-    const pdfTable = this.pdfTable.nativeElement;
+    let data = this.pdfTable.nativeElement;
+    html2canvas(data).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
 
-    console.log(pdfTable.innerHTML);
-    var html = htmlToPdfmake(pdfTable.innerHTML);
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
 
-    const documentDefinition = { content: html };
-    pdfMake.createPdf(documentDefinition).open();
+      PDF.save('angular-demo.pdf');
+    });
   }
 }
