@@ -24,6 +24,8 @@
     "@cds/core": "5.2.0",
     "@clr/angular": "5.2.0",
     "@clr/ui": "5.2.0",
+    "@ngrx/effects": "^12.0.0",
+    "@ngrx/store": "^12.0.0",
     "ngx-dropzone": "^3.0.0",
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",

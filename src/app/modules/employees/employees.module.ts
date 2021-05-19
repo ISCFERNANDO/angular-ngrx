@@ -13,6 +13,10 @@ import { HomeEmployeeComponent } from './screens/home-employee/home-employee.com
     EmployeeComponent,
     HomeEmployeeComponent,
   ],
-  imports: [CommonModule, EmployeesRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    EmployeesRoutingModule,
+    SharedModule
+  ],
 })
 export class EmployeesModule {}

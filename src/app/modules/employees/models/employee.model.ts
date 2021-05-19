@@ -6,3 +6,8 @@ export interface Employee {
   imageUrl?: string;
   file?: File;
 }
+
+export interface Employees {
+  employees: Employee[];
+  error?: string;
+}

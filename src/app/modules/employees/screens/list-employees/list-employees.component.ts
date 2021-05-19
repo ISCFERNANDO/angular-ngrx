@@ -1,8 +1,8 @@
-import { EmployeesService } from './../../services/employees.service';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../models/employee.model';
-import { finalize, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/redux/state';
 
 @Component({
   selector: 'app-list-employees',
@@ -15,35 +15,23 @@ export class ListEmployeesComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private employeService: EmployeesService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.loadEmployees();
+    setTimeout(() => this.loadEmployees());
   }
 
   loadEmployees(): void {
     this.loading = true;
-    this.employeService
-      .loadEmployees()
-      .pipe(
-        map((resp) => resp?.data),
-        finalize(() => (this.loading = false))
-      )
-      .subscribe(
-        (data: Array<any>) => {
-          if (!data) return;
-          this.employees = data.map((item) => ({
-            id: item.id,
-            name: item.employee_name,
-            age: item.employee_age,
-            salary: item.employee_salary,
-            imageUrl: item.profile_image,
-          }));
-          this.totalItems = this.employees.length;
-        },
-        (error: any) => this.toastService.error(error.message, 'Error')
-      );
+    this.store.select('employees').subscribe((data) => {
+      if (data.error) {
+        this.toastService.error(data.error, 'Error');
+        return;
+      }
+      this.employees = data.employees;
+      this.loading = false;
+    });
   }
 }
