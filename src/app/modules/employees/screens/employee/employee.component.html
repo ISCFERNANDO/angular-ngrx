@@ -1,7 +1,9 @@
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Alta de empleados</mat-card-title>
+    <mat-card-title>{{
+      editing ? "Edición de empleado" : "Alta de empleados"
+    }}</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
@@ -12,6 +14,7 @@
             <app-avatar-upload
               [imageUrl]="imageUrl"
               (fileEvent)="fileHandler($event)"
+              [file]="file"
             ></app-avatar-upload>
           </div>
         </mat-grid-tile>

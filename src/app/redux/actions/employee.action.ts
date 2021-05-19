@@ -19,3 +19,8 @@ export const addEmployee = createAction(
   '[EMPLOYEE] > Agregar nuevo empleado',
   props<{ employee: Employee }>()
 );
+
+export const updateEmployee = createAction(
+  '[EMPLOYEE] > Actualizar empleado',
+  props<{ employee: Employee }>()
+);
