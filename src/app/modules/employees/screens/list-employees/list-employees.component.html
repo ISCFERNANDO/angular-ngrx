@@ -27,7 +27,11 @@
             <mat-icon>remove_red_eye</mat-icon>
           </button>
 
-          <button mat-icon-button matTooltip="Editar">
+          <button
+            mat-icon-button
+            matTooltip="Editar"
+            [routerLink]="['editar', employe.id]"
+          >
             <mat-icon>edit</mat-icon>
           </button>
         </clr-dg-cell>

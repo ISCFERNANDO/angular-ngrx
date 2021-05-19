@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as employeeActions from '../../../../redux/actions/employee.action';
 import { Employee } from '../../models/employee.model';
 import { forbiddenNumberValidator } from 'src/app/utils/validators/phone-number.validator';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -15,17 +16,26 @@ import { forbiddenNumberValidator } from 'src/app/utils/validators/phone-number.
 export class EmployeeComponent implements OnInit {
   formEmployee!: FormGroup;
   imageUrl: string = '';
-  file!: File;
+  file!: File | any;
+  employeeId!: number;
+  editing: boolean = false;
 
   constructor(
     private fBuilder: FormBuilder,
     private location: Location,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private activateRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
-    this.calculateNextId();
+    this.employeeId = +this.activateRoute.snapshot.params.id;
+    if (this.employeeId) {
+      this.editing = true;
+      this.findEmployeeById();
+    } else {
+      this.calculateNextId();
+    }
   }
 
   private buildForm(): void {
@@ -34,6 +44,14 @@ export class EmployeeComponent implements OnInit {
       name: ['', Validators.required],
       salary: ['', [Validators.required, forbiddenNumberValidator()]],
       age: ['', [Validators.required, forbiddenNumberValidator()]],
+    });
+  }
+
+  private findEmployeeById(): void {
+    this.store.select('employees').subscribe((data) => {
+      const employee = data.employees.find((e) => e.id === this.employeeId);
+      this.file = employee?.file;
+      this.formEmployee.patchValue({ ...employee });
     });
   }
 
@@ -58,7 +76,11 @@ export class EmployeeComponent implements OnInit {
   saveEmployee(): void {
     const employee: Employee = this.formEmployee.getRawValue();
     employee.file = this.file;
-    this.store.dispatch(employeeActions.addEmployee({ employee }));
+    if (this.editing) {
+      this.store.dispatch(employeeActions.updateEmployee({ employee }));
+    } else {
+      this.store.dispatch(employeeActions.addEmployee({ employee }));
+    }
     this.back();
   }
 
