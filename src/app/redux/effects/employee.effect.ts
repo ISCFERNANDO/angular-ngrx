@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import * as employeeActions from '../actions/employee.action';
+import { Employee } from 'src/app/modules/employees/models/employee.model';
 
 @Injectable()
 export class EmployeeEffects {
@@ -18,19 +19,23 @@ export class EmployeeEffects {
       mergeMap(() =>
         this.employeesService.loadEmployees().pipe(
           map(({ data }) => {
+            let lastId = 1;
+            let employees: Employee[] = [];
             if (data && data.length) {
-              return employeeActions.setEmployeesSucces({
-                employees: data.map((item: any) => ({
+              employees = data.map((item: any) => {
+                lastId = lastId < item.id ? item.id : lastId;
+                return {
                   id: item.id,
                   name: item.employee_name,
                   age: item.employee_age,
                   salary: item.employee_salary,
                   imageUrl: item.profile_image,
-                })),
+                };
               });
             }
             return employeeActions.setEmployeesSucces({
-              employees: [],
+              employees,
+              lastId,
             });
           }),
           catchError(({ message }) =>

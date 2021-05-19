@@ -52,6 +52,11 @@
             <mat-error *ngIf="formEmployee.get('salary')?.hasError('required')">
               El salario de empleado es requerido
             </mat-error>
+            <mat-error
+              *ngIf="formEmployee.get('salary')?.hasError('forbiddenNumber')"
+            >
+              El salario debe ser numérico
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -62,13 +67,18 @@
             <mat-error *ngIf="formEmployee.get('age')?.hasError('required')">
               La edad del empleado es requerido
             </mat-error>
+            <mat-error
+              *ngIf="formEmployee.get('age')?.hasError('forbiddenNumber')"
+            >
+              La edad debe ser numérico
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="saveEmployee()">Guardar</button>
+    <button mat-button (click)="validateAndSaveEmployee()">Guardar</button>
     <button mat-button (click)="back()">Cancelar</button>
   </mat-card-actions>
 </mat-card>

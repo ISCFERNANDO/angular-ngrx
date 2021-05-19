@@ -31,6 +31,7 @@ export class ListEmployeesComponent implements OnInit {
         return;
       }
       this.employees = data.employees;
+      this.totalItems = this.employees.length;
       this.loading = false;
     });
   }
