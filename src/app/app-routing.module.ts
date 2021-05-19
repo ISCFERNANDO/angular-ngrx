@@ -3,20 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'employees',
+    loadChildren: () =>
+      import('./modules/employees/employees.module').then(
+        ({ EmployeesModule }) => EmployeesModule
+      ),
+  },
+  {
     path: '',
-    children: [
-      {
-        path: 'employees',
-        loadChildren: () =>
-          import('./modules/employees/employees.module').then(
-            ({ EmployeesModule }) => EmployeesModule
-          ),
-      },
-    ],
+    redirectTo: '/employees',
+    pathMatch: 'full',
   },
   {
     path: '**',
-    pathMatch: 'full',
     redirectTo: 'employees',
   },
 ];
