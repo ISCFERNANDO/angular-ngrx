@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { ClarityModule } from '@clr/angular';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const angularMaterialModules = [
   MatButtonModule,
@@ -24,6 +25,7 @@ const angularMaterialModules = [
   MatFormFieldModule,
   MatInputModule,
   MatGridListModule,
+  MatDialogModule,
 ];
 
 const clarityModules = [ClarityModule];

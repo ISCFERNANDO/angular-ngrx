@@ -9,9 +9,9 @@
 <div class="clr-row">
   <div class="clr-col-12">
     <clr-datagrid [clrDgLoading]="loading">
-      <clr-dg-column>Nombre</clr-dg-column>
-      <clr-dg-column>Edad</clr-dg-column>
-      <clr-dg-column>Salario</clr-dg-column>
+      <clr-dg-column [clrDgField]="'name'"> Nombre </clr-dg-column>
+      <clr-dg-column [clrDgField]="'age'"> Edad </clr-dg-column>
+      <clr-dg-column [clrDgField]="'salary'"> Salario </clr-dg-column>
       <clr-dg-column></clr-dg-column>
 
       <clr-dg-row *clrDgItems="let employe of employees">
@@ -22,16 +22,12 @@
           <button
             mat-icon-button
             matTooltip="Ver detalle"
-            [routerLink]="['employees', employe.id]"
+            (click)="openDetail(employe)"
           >
             <mat-icon>remove_red_eye</mat-icon>
           </button>
 
-          <button
-            mat-icon-button
-            matTooltip="Editar"
-            [routerLink]="['employees', employe.id]"
-          >
+          <button mat-icon-button matTooltip="Editar">
             <mat-icon>edit</mat-icon>
           </button>
         </clr-dg-cell>

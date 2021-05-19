@@ -1,0 +1,63 @@
+<button class="close" mat-icon-button mat-dialog-close>
+  <mat-icon title="Cerrar modal">close</mat-icon>
+</button>
+<h1 mat-dialog-title>Detalle del empleado</h1>
+<div mat-dialog-content #pdfTable>
+  <form [formGroup]="formEmployee">
+    <mat-card class="example-card">
+      <mat-card-content>
+        <mat-grid-list cols="6" rowHeight="58px" [gutterSize]="'16px'">
+          <mat-grid-tile [colspan]="2" [rowspan]="3">
+            <div class="upload">
+              <app-avatar-upload
+                [imageUrl]="imageUrl"
+                [isEditable]="false"
+                [file]="employee.file"
+              ></app-avatar-upload>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <mat-form-field class="example-full-width">
+              <mat-label>Nombre completo</mat-label>
+              <input
+                matInput
+                placeholder="Nombre del empleado"
+                formControlName="name"
+                readonly
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="example-full-width">
+              <mat-label>Salario</mat-label>
+              <input
+                matInput
+                placeholder="ej: 450"
+                formControlName="salary"
+                readonly
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="example-full-width">
+              <mat-label>Edad</mat-label>
+              <input
+                matInput
+                placeholder="ej: 24"
+                formControlName="age"
+                readonly
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="downloadAsPDF()">Esxportar a pdf</button>
+  <button mat-button [mat-dialog-close]="true">Cerrar</button>
+</mat-dialog-actions>

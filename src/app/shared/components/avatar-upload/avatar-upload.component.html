@@ -1,25 +1,26 @@
 <div
-    class="image-container"
-    ngx-dropzone
-    accept="image/jpeg,image/jpg,image/png"
-    [multiple]="false"
-    (change)="onSelect($event)"
-    [maxFileSize]="1000000"
+  class="image-container"
+  ngx-dropzone
+  accept="image/jpeg,image/jpg,image/png"
+  [multiple]="false"
+  (change)="onSelect($event)"
+  [maxFileSize]="1000000"
+  [disabled]="!isEditable"
 >
-    <img
-        *ngIf="imageUrl"
-        [src]="imageUrl"
-        class="avatar"
-        alt="No se puede mostrar la imágen"
-    />
-    <img
-        *ngIf="imgURL"
-        [src]="imgURL"
-        class="avatar"
-        alt="No se puede mostrar la imágen"
-    />
-    <br>
-    <button color="primary" mat-icon-button>
-        <mat-icon size="50px">upload</mat-icon>
-    </button>
+  <img
+    *ngIf="imageUrl"
+    [src]="imageUrl"
+    class="avatar"
+    alt="No se puede mostrar la imágen"
+  />
+  <img
+    *ngIf="imgURL"
+    [src]="imgURL"
+    class="avatar"
+    alt="No se puede mostrar la imágen"
+  />
+  <br />
+  <button *ngIf="isEditable" color="primary" mat-icon-button>
+    <mat-icon size="50px">upload</mat-icon>
+  </button>
 </div>
