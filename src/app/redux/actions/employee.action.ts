@@ -7,10 +7,15 @@ export const loadEmployees = createAction(
 
 export const setEmployeesSucces = createAction(
   '[EMPLOYEE] > Set información inicial de empleados: success',
-  props<{ employees: Employee[] }>()
+  props<{ employees: Employee[]; lastId: number }>()
 );
 
 export const setEmployeesError = createAction(
   '[EMPLOYEE] > Set información inicial de empleados: error',
   props<{ error: string }>()
+);
+
+export const addEmployee = createAction(
+  '[EMPLOYEE] > Agregar nuevo empleado',
+  props<{ employee: Employee }>()
 );

@@ -9,5 +9,6 @@ export interface Employee {
 
 export interface Employees {
   employees: Employee[];
+  lastId: number;
   error?: string;
 }
